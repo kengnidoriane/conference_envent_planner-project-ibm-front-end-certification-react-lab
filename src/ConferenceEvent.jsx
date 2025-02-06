@@ -73,12 +73,18 @@ const ConferenceEvent = () => {
           avItems.forEach(item => {
             totalCost += item.cost * item.quantity;
           })
+        } else if (section === "meals") {
+          mealsItems.forEach((item) => {
+            if (item.selected) {
+                totalCost += item.cost * item.quantity;
+            }
+          })
         }
         return totalCost;
       };
     const venueTotalCost = calculateTotalCost("venue");
     const avTotalCost = calculateTotalCost("av");
-
+    const mealsTotalCost = calculateTotalCost("meals");
     const navigateToProducts = (idType) => {
         if (idType == '#venue' || idType == '#addons' || idType == '#meals') {
           if (showItems) { // Check if showItems is false
@@ -216,7 +222,7 @@ const ConferenceEvent = () => {
                                       <div className="meal_item" key={index} style={{padding: 15}}>
                                         <div className="inner">
                                           <input type="checkbox" id={`meal_${index}`}
-                                            checked={ item.selectd}
+                                            checked={ item.selected}
                                             onChange={() => handleMealSelection(index)}
                                           />
                                           <label htmlFor={`meal_${index}`}>{ item.name}</label>
@@ -225,7 +231,7 @@ const ConferenceEvent = () => {
                                       </div>
                                     ))}
                                 </div>
-                                <div className="total_cost">Total Cost: </div>
+                                <div className="total_cost">Total Cost: ${mealsTotalCost}</div>
 
 
                             </div>
