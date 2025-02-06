@@ -43,7 +43,14 @@ const ConferenceEvent = () => {
     };
 
     const handleMealSelection = (index) => {
-       
+       const item = mealsItems[index];
+       if (item.selected && item.type === 'mealForPeople') {
+          const newNumberOfPeople = item.selected ? numberOfPeople : 0;
+          dispatch(toggleMealSelection(index, newNumberOfPeople));
+       }
+       else {
+        dispatch(toggleMealSelection(index))
+       }
     };
 
     const getItemsFromTotalCost = () => {
