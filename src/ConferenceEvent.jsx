@@ -13,16 +13,10 @@ const ConferenceEvent = () => {
     const avItems = useSelector((state) => state.av);
     const mealsItems = useSelector((state) => state.meals);
 
-    const totalCosts = {
-      venue: venueTotalCost,
-      av: avTotalCost,
-      meals: mealsTotalCost,
-  };
 
     const dispatch = useDispatch();
     const remainingAuditoriumQuantity = 3 - venueItems.find(item => item.name === "Auditorium Hall (Capacity:200)").quantity;
 
-    
     const handleToggleItems = () => {
         console.log("handleToggleItems called");
         setShowItems(!showItems);
@@ -140,7 +134,7 @@ const ConferenceEvent = () => {
         } else if (section === "meals") {
           mealsItems.forEach((item) => {
             if (item.selected) {
-                totalCost += item.cost * item.quantity;
+                totalCost += item.cost * numberOfPeople;
             }
           })
         }
@@ -156,7 +150,11 @@ const ConferenceEvent = () => {
           }
         }
       }
-
+      const totalCosts = {
+        venue: venueTotalCost,
+        av: avTotalCost,
+        meals: mealsTotalCost,
+    };
 
 
     return (
